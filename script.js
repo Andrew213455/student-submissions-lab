@@ -44,19 +44,27 @@ const oldSubmissions = [
     array.push(newSubmission);
   }
 
+//3
+
   const deleteSubmissionByIndex = (array, index) => {
     array.splice(index, 1);
   }
 
-deleteSubmissionByIndex(oldSubmissions, 0);
-console.log(oldSubmissions);
+//deleteSubmissionByIndex(oldSubmissions, 0);
+//console.log(oldSubmissions);
 
 
 //4 not finished
 const deleteSubmissionByName = (array, name) => {
-    array.findIndex((thing) => {
+    const index = array.findIndex((thing) => {
         return thing.name === name;
-    })
+    });
+    
+    if (index !== -2) {
+    array.splice(index, 1);
+    } else {
+        console.log(`${name} was not in the list`)
+    }
 }
 
 deleteSubmissionByName(submissions, "joe");
@@ -64,19 +72,33 @@ console.log(submissions);
 
 //5
 
-const editSubmission = (array, index, score) => {
-    array.forEach((input) => {
-        input[index] === score;
-    })
-    if (score < 60) {
-        return false;
+const editSubmission = (array, index, newScore) => {
+    array[index].score = newScore;
+
+    if (array[index].newScore >= 60) {
+        array[index].passed === true;
     } else {
-        return true;
+        array[index].passed === false;
     }
 }
 
-editSubmission(submissions, 2, 70);
-console.log(submissions);
+//editSubmission(submissions, 2, 70);
+//console.log(submissions);
+
+//6
+const findSubmissionByName = (array, name) => {
+    const result = array.find((item) => {
+        return item.name === name;
+    })
+
+    if(result === undefined) {
+        return `${nameImLookingFor} is not in our list`
+    } else {
+        return result;
+    }
+}
+
+console.log(findSubmissionByName(submissions, "Jill"));
 
 
 // 7  deck of cards
@@ -95,5 +117,37 @@ const findLowestScore = (array) => {
     return lowestScoreHolder;
 }
 
+//8
+
+const findAverageScore = (array) => {
+    let total = 0;
+    for (let submission of array) {
+        total += submission.score;
+    }
+    const average = total / array.length;
+    return average;
+}
+
+console.log(findAverageScore(submissions));
+
+//9
+
+const filterPassing = (array) => {
+    return array.filter((submission) => {
+        return submission.passed === true;
+    })
+};
+
+console.log(filterPassing(submissions));
+
+//10
+
+const filter90AndAbove = (array) => {
+    return array.filter((submission) => {
+        return submission.passed.score >= 90;
+    })
+}
+
+console.log(filter90AndAbove(submissions));
 
 
